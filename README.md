@@ -1,1 +1,1 @@
-Saves contacts and can view them later.
+Saves contacts and can view them.
