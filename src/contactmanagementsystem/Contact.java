@@ -1,21 +1,14 @@
 package contactmanagementsystem;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author User
- */
-class Contact {
+public class Contact {
     private String name;
     private int age;
     private String phoneNumber;
 
     public void setName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be empty or null.");
+        }
         this.name = name;
     }
 
@@ -24,11 +17,10 @@ class Contact {
     }
 
     public void setAge(int age) {
-        if (age > 0) {
-            this.age = age;
-        } else {
-            System.out.println("Age must be a positive number.");
+        if (age <= 0) {
+            throw new IllegalArgumentException("Age must be a positive number.");
         }
+        this.age = age;
     }
 
     public int getAge() {
@@ -36,6 +28,12 @@ class Contact {
     }
 
     public void setPhoneNumber(String phoneNumber) {
+        if (phoneNumber == null || phoneNumber.trim().isEmpty()) {
+            throw new IllegalArgumentException("Phone number cannot be empty or null.");
+        }
+        if (!phoneNumber.matches("\\d{11}")) { // Validate if phone number is exactly 11 digits
+            throw new IllegalArgumentException("Phone number must be exactly 11 digits.");
+        }
         this.phoneNumber = phoneNumber;
     }
 
@@ -49,4 +47,3 @@ class Contact {
         System.out.println("Phone Number: " + getPhoneNumber());
     }
 }
-

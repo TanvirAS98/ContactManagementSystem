@@ -1,15 +1,5 @@
 package contactmanagementsystem;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author User
- */
 import java.util.ArrayList;
 
 class ContactManager {
@@ -22,6 +12,9 @@ class ContactManager {
 
     // Method to add a contact
     public void addContact(Contact contact) {
+        if (contact == null) {
+            throw new IllegalArgumentException("Cannot add a null contact.");
+        }
         contacts.add(contact);
     }
 
@@ -30,17 +23,27 @@ class ContactManager {
         if (contacts.isEmpty()) {
             System.out.println("No contacts available.");
         } else {
-            for (Contact contact : contacts) {
-                contact.displayContactInfo();
-                System.out.println("--------------------");
+            try {
+                for (Contact contact : contacts) {
+                    if (contact == null) {
+                        throw new NullPointerException("Contact is null.");
+                    }
+                    contact.displayContactInfo();
+                    System.out.println("--------------------");
+                }
+            } catch (NullPointerException e) {
+                System.out.println("Error: " + e.getMessage());
             }
         }
     }
 
     // Method to find a contact by name
     public Contact findContactByName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Search name cannot be null or empty.");
+        }
         for (Contact contact : contacts) {
-            if (contact.getName().equalsIgnoreCase(name)) {
+            if (contact != null && contact.getName().equalsIgnoreCase(name)) {
                 return contact;
             }
         }
